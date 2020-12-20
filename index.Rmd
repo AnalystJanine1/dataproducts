@@ -1,0 +1,49 @@
+---
+title: "Data Product Assignment"
+author: "Janine Djeundje"
+date: "20/12/2020"
+output: html_document
+---
+For this assignment, we are asked to create a web page using R Markdown that features a map created with Leaflet. 
+
+```{r, eval=FALSE}
+install.packages("leaflet")
+```
+
+
+
+```{r, echo=FALSE}
+library(leaflet)
+set.seed(20-12-2020)
+heriotwattIcon <- makeIcon(
+  iconUrl = "https://cdn.freebiesupply.com/logos/large/2x/heriot-watt-university-logo-png-transparent.png",
+  iconWidth = 31*215/230, iconHeight = 31,
+  iconAnchorX = 31*215/230/2, iconAnchorY = 16
+)
+
+heriotwattSites <- c(
+  "<a href='https://www.hw.ac.uk/uk/edinburgh.htm'>Edinburgh Campus</a>",
+  "<a href=' https://www.hw.ac.uk/uk/scottish-borders.htm'>Scottish Borders Campus</a>",
+  "<a href='https://www.hw.ac.uk/dubai/ '>Dubai Campus</a>",
+  "<a href='https://www.hw.ac.uk/malaysia/'>Malaysia Campus</a>",
+  "<a href='https://www.hw.ac.uk/uk/orkney.htm'>Orkney Campus</a>"
+)
+
+#Latitude of Edinburgh scotland: 55.916270: Longitude of Edinburgh scotland-3.218940
+#Latitude of Scottish Borders	55.5485697, Longitude of Scottish Borders	-2.7861388
+#Latitude and longitude coordinates are: 25.276987, 55.296249.
+#coordinates of Malaysia. Latitude: 4.1406 Longitude: 109.6181
+#Latitude of Orkney	58.936601, Longitude of Orkney	-2.743876.
+
+campusplaces = c('Edinburgh','Scottish Borders','Dubai','Malaysia','Orkney')
+heriotwattLatLong <- data.frame(name=campusplaces,
+  lat = c(55.916270, 55.5485697, 25.276987, 4.1406, 58.936601),
+  lng = c(-3.218940, 	-2.7861388, 55.296249, 109.6181, 	-2.743876))
+
+heriotwattLatLong %>% 
+  leaflet() %>%
+  addTiles() %>%
+  addMarkers(icon = heriotwattIcon, popup = heriotwattSites) 
+```
+
+
